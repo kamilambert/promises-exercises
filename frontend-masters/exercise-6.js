@@ -31,5 +31,19 @@ function getFile(file) {
 // Render as each one finishes,
 // but only once previous rendering
 // is done.
-
-// ???
+ASQ()
+.seq.apply(null,
+	["file1","file2","file3"]
+	// Request all files at once in "parallel"
+	.map(getFile)
+	// Render output as each file finishes, but
+	// only once previous rendering is done
+	.map(function(sq){
+		return function(){
+			return sq.val(output);
+		};
+	})
+)
+.val(function(){
+	output("Complete!");
+});
