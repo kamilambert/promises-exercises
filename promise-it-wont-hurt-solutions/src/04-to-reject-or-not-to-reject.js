@@ -7,4 +7,4 @@ var onRejected = function(error) {
 	console.log(error);
 }
 
-promiseg.then(console.log, onRejected)
+promise.then(console.log, onRejected)
