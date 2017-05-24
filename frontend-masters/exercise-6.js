@@ -1,4 +1,4 @@
-function fakeAjax(url,cb) {
+	function fakeAjax(url,cb) {
 	var fake_responses = {
 		"file1": "The first text",
 		"file2": "The middle text",
