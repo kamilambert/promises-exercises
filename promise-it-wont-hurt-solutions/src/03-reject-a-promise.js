@@ -8,5 +8,4 @@ function onReject (error) {
   console.log(error.message)
 }
 
-promise
-	.then(console.log, onReject)
+promise.then(console.log, onReject)
