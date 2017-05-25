@@ -2,15 +2,15 @@ const pg = require('pg-promise')()
 const assert = require('assert')
 
 const postgresConfig = {
-  host: 'localhost',
-  port: 5432,
-  database: 'pg-promise-exercises',
-  user: 'spencerdezartsmith', // replace this with your username
-  password: '' //  replace this if you have set a password for your username (this is unlikely)
-};
+	host: 'localhost',
+	port: 5432,
+	database: 'pg-promise-exercises',
+	user: 'spencerdezartsmith', // replace this with your username
+	password: '' //  replace this if you have set a password for your username (this is unlikely)
+}
 
 
-const db = pg(postgresConfig);
+const db = pg(postgresConfig)
 
 /* -----------------------------------------
    Exercise 1
@@ -31,8 +31,8 @@ const allBooks = db.any('select * from books')
 /* This is calling the `then` function on the `allBooks` promise, and checks if
    we get back 15 rows. This assertion will fail. Make it PASS!*/
 allBooks.then(books => {
-  assert.deepEqual(books.length, 15)
-}).catch(error => console.log('Dang, my assertion failed.', error));
+	assert.deepEqual(books.length, 15)
+}).catch(error => console.log('Dang, my assertion failed.', error))
 
 /* --------End of Exercise 1---------------- */
 
@@ -51,8 +51,8 @@ allBooks.then(books => {
 
 let firstTenBooks = db.any('select title from books')
 firstTenBooks.then(books => {
-  assert(books.length, 10)
-}).catch(error => console.log('Whoops, my function doesnt behave as expected.', error));
+	assert(books.length, 10)
+}).catch(error => console.log('Whoops, my function doesnt behave as expected.', error))
 
 /* --------End of Exercise 2---------------- */
 
@@ -77,12 +77,12 @@ firstTenBooks.then(books => {
 
 let findAuthorsOrderedByLastName = db.any('select * from authors order by last_name')
 findAuthorsOrderedByLastName.then(authors => {
-  assert.deepEqual(authors.length, 19)
-  assert.deepEqual(authors[0].last_name, 'Alcott')
-  assert.deepEqual(authors[18].last_name, 'Worsley')
+	assert.deepEqual(authors.length, 19)
+	assert.deepEqual(authors[0].last_name, 'Alcott')
+	assert.deepEqual(authors[18].last_name, 'Worsley')
 }).catch(error => {
-  console.log('Whoops, my function doesnt behave as expected.', error);
-});
+	console.log('Whoops, my function doesnt behave as expected.', error)
+})
 
 /* --------End of Exercise 3---------------- */
 
@@ -125,11 +125,11 @@ let findBookAuthors = db.any(
 
 findBookAuthors.then(authors => {
 	assert.deepEqual(authors.length, 15)
-  assert.deepEqual(authors[0].first_name, 'John')
-  assert.deepEqual(authors[authors.length - 1].last_name, 'Geisel')
+	assert.deepEqual(authors[0].first_name, 'John')
+	assert.deepEqual(authors[authors.length - 1].last_name, 'Geisel')
 }).catch(error => {
-	console.log('You are a good person, the function just doesnt behave as expected.', error);
-});
+	console.log('You are a good person, the function just doesnt behave as expected.', error)
+})
 
 /* --------End of Exercise 4---------------- */
 
@@ -160,10 +160,10 @@ findBookAuthors.then(authors => {
 let authorIdWithTwoBooks = db.any('select author_id from books group by author_id having (count (author_id) > 1)' )
 
 authorIdWithTwoBooks.then(authors => {
-  assert.deepEqual(authors.length, 2)
+	assert.deepEqual(authors.length, 2)
 }).catch(error => {
-	console.log('You are a good person, the function just doesnt behave as expected.', error);
-});
+	console.log('You are a good person, the function just doesnt behave as expected.', error)
+})
 /* --------End of Exercise 5---------------- */
 
 
@@ -195,11 +195,11 @@ authorIdWithTwoBooks.then(authors => {
 let bookTitlesWithMultipleEditions = db.any('select books.title from books inner join editions on books.id = editions.book_id group by books.title having (count (editions.book_id) > 1)')
 
 bookTitlesWithMultipleEditions.then(books => {
-  assert.deepEqual(books.length, 5)
-  assert.deepEqual(books[0].title, 'The Shining')
+	assert.deepEqual(books.length, 5)
+	assert.deepEqual(books[0].title, 'The Shining')
 }).catch(error => {
-	console.log('You are a good person, the function just doesnt behave as expected.', error);
-});
+	console.log('You are a good person, the function just doesnt behave as expected.', error)
+})
 
 /* --------End of Exercise 6---------------- */
 
@@ -229,11 +229,11 @@ bookTitlesWithMultipleEditions.then(books => {
 let findStockedBooks = db.any('select authors.first_name, authors.last_name, books.title from authors inner join books on authors.id = books.author_id inner join editions on books.id = editions.book_id inner join daily_inventory on editions.isbn = daily_inventory.isbn where is_stocked = TRUE')
 
 findStockedBooks.then(books => {
-  assert.deepEqual(books.length, 2)
-  assert.deepEqual(books[0].title, 'Dune')
-  assert.deepEqual(books[1].first_name, 'Theodor Seuss')
-}).catch(err => {
-  console.log('You are a good person, the function just doesnt behave as expected.', error);
+	assert.deepEqual(books.length, 2)
+	assert.deepEqual(books[0].title, 'Dune')
+	assert.deepEqual(books[1].first_name, 'Theodor Seuss')
+}).catch(error => {
+	console.log('You are a good person, the function just doesnt behave as expected.', error)
 })
 
 /* --------End of Exercise 7---------------- */
@@ -241,5 +241,5 @@ findStockedBooks.then(books => {
 
 
 
-console.log('Reached the end!');
-pg.end();
+console.log('Reached the end!')
+pg.end()
